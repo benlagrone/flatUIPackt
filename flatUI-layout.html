@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+.peter-river{background-color:#3498db}
+.color-0 { background-color: #3499DB }	/* Main Primary color */
+.color-1 { background-color: #85C4ED }
+.color-2 { background-color: #58ADE3 }
+.color-3 { background-color: #0F85D1 }
+.color-4 { background-color: #0665A2 }
+.wet-asphalt{background-color:#34495e}
+.small{font-size:.5REM}
+.large{font-size:2.1REM}
+
+body{margin:0;color:white;font-family: 'Lato', sans-serif;font-size:100%;}
+footer{height:34px;clear:both;}
+
+
+@media (orientation:portrait){
+section{width:100%;}
+section > div:first-of-type{height:110px}
+div > div{height:110px}
+} 
+
+@media (orientation:landscape){
+section{width:50%;display:block;}
+section:first-of-type{float:left;}
+section:last-of-type{float:right;}
+section > div:first-of-type{height:144px}
+div > div{width:50%;height:199px;}
+div > div:first-of-type{float:left;}
+div > div:last-of-type{float:right;}
+} 
+
+.ellipsis{
+text-overflow:ellipsis;
+white-space: nowrap;
+overflow:hidden;
+}
+.ellipsis::after{
+	content:"...";
+}
+
+p {
+	width:100%;
+	display:block;
+    word-wrap: break-word;
+    overflow:scroll;
+}
+
+</style>
+
+<style>
+@media (orientation:portrait){
+.time h1{margin:5% 3%;padding:0;float:left;}
+.time span:first-of-type{display:block;}
+.tasks ul{display:inline-block;width:1400px;}
+ .news ul{display:inline-block;width:800px;}
+.tasks ul li, .news ul li{float:left;width:226px;margin:0 35px 0 0;}
+.tasks ul li p, .news ul li p{margin:5px;}
+.tasks ul li h4, .news ul li h4{margin:2px;}
+.scroll-y{overflow-x:scroll;}
+
+.weather ul{list-style-type:none;}
+.weather > ul > li{display:inline;float:left;}
+
+.weather > ul > li:first-child > ul > li:first-child{width:25%;float:left;text-align:right;margin-left:15%;}
+.weather > ul > li:first-child > ul > li:last-child{width:60%;float:right;text-align:center;}
+.weather h2{font-size:.8REM}
+
+.travel h2,.travel h3,.travel h4{float:left;margin-left:5px;}
+.travel h2{margin-bottom:0;}
+.stock > ul > li{float:left;width:33%;margin:0;padding:0;display:inline;}
+.stock > ul{margin:5%; padding:0;}
+} 
+
+@media (orientation:landscape){
+.time{text-align:center}
+.dark{color:#34495e;}
+.scroll-y{overflow-y:scroll;}
+.left{float:left;clear:left;}
+.right{float:right;clear:right}
+.center{text-align:center;}
+ul{list-style-type:none;margin:0;}
+.news ul, .tasks ul, .stock ul{padding:5%}
+.news{font-size:0.7REM;}
+.tasks{font-size:0.7REM;}
+
+.weather{font-size:0.9REM;}
+.weather > ul > li {float:left;margin:0}
+.weather > ul > li:first-child > ul > li:first-child{width:100%;}
+.weather > ul > li:first-child > ul > li:last-child{width:100%;text-align:center;}
+.weather > ul > li:first-child > ul > li:last-child ul{width:100%;padding:0;}
+.weather h2{font-size:1.5REM}
+
+.travel{}
+.stock{}
+.dark-text, h4{color:#34495e}
+h4{margin:2px;}
+} 
+
+
+.weather > ul{margin:5% 0;padding:0;}
+.weather > ul > li:first-child{width:30%;margin:0 5% 0 0;}
+.weather > ul > li:last-child{width:65%}
+.weather > ul > li > ul {padding:0;margin:0 0 0 5%}
+.weather > ul > li:last-child > ul > li:first-child{width:60%;float:left;}
+.weather > ul > li:last-child > ul > li:last-child{width:40%;float:left;}
+.weather > ul > li:last-child > ul > li > ul {margin:0;padding:0;}
+.weather h2{;padding:10% 0 0 0;margin:0 auto;text-align:center}
+button{
+	padding: 10px 19px;
+	margin:0 auto;
+    font-size: 17px;
+    line-height: 1.471;
+    border-radius: 6px;
+    border-color: #357ebd;
+    color: #fff;
+    background-color: #1abc9c;
+    font-weight: 400;
+    border: none;
+    transition: border .25s linear,color .25s linear,background-color .25s linear;
+    -webkit-font-smoothing: subpixel-antialiased;
+    width:75%;
+    display: block; 
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    white-space: normal;
+}
+
+</style>
+
+<script>
+
+	var dayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	var monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    
+function getTime() {var today=new Date();
+    var h=today.getHours();
+    var m=today.getMinutes();
+    var s=today.getSeconds();
+    var d=dayArray[today.getDay()];
+    var mo=monthArray[today.getMonth()];
+    var y=today.getFullYear();
+    m = correctDigit(m);
+    s = correctDigit(s);
+    document.getElementById('time').innerHTML = "<br><h1 class='large'>"+h+":"+m+":"+s+"</h1>&nbsp;<span class='dark'>"+d+",</span class='dark'>&nbsp;<span class='dark'>"+mo+"</span>&nbsp;<span class='dark'>"+y+"</span>";
+    var t = setTimeout(function(){getTime()},500);
+}
+
+function correctDigit(i) {
+    if (i<10)i = "0" + i;  // add zero in front of numbers < 10
+    return i;
+}
+</script>
+</head>
+<body onload="getTime()" class='color-4'>
+<section>
+	<div class="time color-0" id="time">
+		
+	</div>
+	<div>
+		<div class='news color-1 scroll-y'>
+			<ul>
+				<li class="ellipsis">
+					<h4 class="dark">Title 1</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit... </p>
+				</li>
+				<li class="ellipsis">
+					<h4 class="dark">Title 2</h4>
+					<p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+				</li>
+				<li class="ellipsis">
+					<h4 class="dark">Title 3</h4>
+					<p>Ut enim ad minim veniam, nisi ut aliquip ex ea commodo consequat...</p>
+				</li>
+			<ul>
+		</div>
+		<div class='tasks color-2 scroll-y'>
+			<ul>
+				<li>
+					<h4 class="dark">8:00 am</h4>
+					<p>Wake up, fall out of bed</p>
+				</li>
+				<li>
+					<h4 class="dark">9:00 am</h4>
+					<p>Run the comb across your head</p>
+				</li>
+				<li>
+					<h4 class="dark">10:00 am</h4>
+					<p>Find your way downstairs and Drink a cup</p>
+				</li>
+				<li>
+					<h4 class="dark">11:00am</h4>
+					<p>Looking up, notice you are late</p>
+				</li>
+				<li>
+					<h4 class="dark">12:00 am</h4>
+					<p>Find your coat and grab your hat</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+<section>
+<div class="weather color-3 scroll-y">
+	<ul>
+		<li>
+			<ul>
+				<li><h2><i class="fa fa-cloud fa-3x"></i></h2></li>
+				<li>
+					<ul>
+						<li class="left"><span>104</span><br><span class="dark">High</span></li>
+						<li class="right"><span>94</span><br><span class="dark">Low</span></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<ul>
+				<li>
+					<ul>
+						<li><span class="dark">Pollen</span><span>3.5</span></li>
+						<li><span class="dark">Humidity</span><span>90%</span></li>
+						<li><span class="dark">Precipitation</span><span>90%</span></li>
+						<li><span class="dark">Wind</span><span>0</span></li>
+					</ul>
+				</li>
+				<li>
+					<ul>
+						<li><span>9</span> <i class="fa fa-sun-o"></i><span>95</span></li>
+						<li><span>12</span> <i class="fa fa-sun-o"></i> <span>100</span></li>
+						<li><span>3</span> <i class="fa fa-cloud"></i> <span>105</span></li>
+						<li><span>6</span> <i class="fa fa-cloud"></i> <span>105</span></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div>
+		<div class="travel color-1 center">
+			<h2><i class="fa fa-bicycle fa-4x"></i></h2>
+
+			<h3>45</h3>
+			<h4 class="dark">Minutes to work</h4>
+		</div>
+		<div class='stock color-4 center'>
+		<ul>
+		<li>
+			<h2><i class="fa fa-line-chart"></i>FOO</h2>
+			</li>
+			<li>
+			<ul>
+				<li class="left">
+					<span>104</span>
+				</li>
+				<li class="right">
+					<span>+5.5</span>
+				</li>
+			</ul>
+			</li>
+			<li>
+			<button class="wet-asphalt">more</button>
+			</li>
+		</div>
+</div>
+</section>
+<footer class='wet-asphalt'>footer</footer>
+</body>
+</html>
